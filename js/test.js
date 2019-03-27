@@ -20,16 +20,16 @@ function allHavePlayed(sounds) {
 }
 
 
-function onAllSoundsPlayed(onAllFinshed) {
+function onAllSoundsPlayed(onAllFinished) {
     if (allHavePlayed(sounds)) {
 
-        onAllFinshed();
+        onAllFinished();
 
     } else {
 
         const sound = sounds[Math.floor(Math.random() * sounds.length)] length
         if (!sound.hasPlayed) {
-            const sound = new Audio(sound.fileName);
+            const audio = new Audio(sound.fileName);
 
             setTimeout(() => { // on sound finished playing
 
