@@ -70,6 +70,7 @@ function playRandomStory() {
 
     if (currentAudio.isPlaying) {
         currentAudio.audio.pause();
+        currentAudio.audio.currentTime = 0;
     }
 
     const randomIdx = Math.floor(Math.random() * audioTracks.length);
