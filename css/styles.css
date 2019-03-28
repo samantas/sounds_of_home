@@ -64,7 +64,7 @@ body {
 
 .cta:active,
 .cta:focus {
-	background-color: #5BC3EB;
+	background-color: #000;
 	color: #fff;
 }
 

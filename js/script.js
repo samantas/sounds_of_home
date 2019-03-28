@@ -1,19 +1,5 @@
 $(document).ready(function() {
 
-    // typed text code from https://codepen.io/gavra/pen/tEpzn
-    var aText = new Array(
-        'What happens when you ask 10 different people',
-        'the same question?',
-    );
-    var iSpeed = 100; // time exploreSoundslay of print out
-    var iIndex = 0; // start printing array at this posision
-    var iArrLength = aText[0].length; // the length of the text array
-    var iScrollAt = 20; // start scrolling up at this many lines
-
-    var iTextPos = 0; // initialise text position
-    var sContents = ''; // initialise contents variable
-    var iRow; // initialise current row
-
     let exploreSoundsBtn = document.getElementById('exploreSoundsBtn');
 
     exploreSoundsBtn.addEventListener('click', playRandomStory);
@@ -23,6 +9,7 @@ $(document).ready(function() {
 
     var sound;
 
+    // when the user clicks the button, play a random story
     function playRandomStory() {
 
         var sounds = [
@@ -49,6 +36,21 @@ $(document).ready(function() {
         }
     }
 
+    // typed text code from https://codepen.io/gavra/pen/tEpzn
+    var aText = new Array(
+        'What happens when you ask 10 different people',
+        'the same question?',
+    );
+    var iSpeed = 100; // time exploreSoundslay of print out
+    var iIndex = 0; // start printing array at this posision
+    var iArrLength = aText[0].length; // the length of the text array
+    var iScrollAt = 20; // start scrolling up at this many lines
+
+    var iTextPos = 0; // initialise text position
+    var sContents = ''; // initialise contents variable
+    var iRow; // initialise current row
+
+    // added a callback so that the page scrolls down after the typing is done
     function typewriter(onFinished) {
         sContents = ' ';
         iRow = Math.max(0, iIndex - iScrollAt);
