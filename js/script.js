@@ -1,87 +1,100 @@
-$(document).ready(function() {
+function whenTypewriterFinishesPrinting(typewriterTextNode, scriptLines, onFinished) {
+
+    const timeoutForNextChar = 100;
+    const timeoutForNextLine = 500;
+
+    function removeTrailingUnderscore(destination) {
+        const str = destination.innerHTML;
+        destination.innerHTML = str.substring(0, str.length - 1);
+    }
+
+    function typewriter(positionOfCursor = 0, currentLineIndex = 0) {
+
+        const lengthOfCurrentLine = scriptLines[currentLineIndex].length;
+        const isFinishedWithLine = positionOfCursor === lengthOfCurrentLine;
+        if (isFinishedWithLine) {
+
+            currentLineIndex += 1; // bump to next line
+            const isFinishedWithScript = currentLineIndex === scriptLines.length;
+            if (isFinishedWithScript) {
+                return onFinished();
+            }
+
+            // reset cursor & recurse with incremented line index to begin typing on the next line
+            removeTrailingUnderscore(typewriterTextNode);
+            positionOfCursor = 0; // reset position back to 0 to begin typing the next line
+            typewriterTextNode.innerHTML += '<br />';
+
+            setTimeout(typewriter, timeoutForNextLine, positionOfCursor, currentLineIndex);
+        } else { // still accumulating characters on this line
+
+            const underscore = '_';
+            const hasUnderscore = positionOfCursor !== 0;
+            if (hasUnderscore) {
+                removeTrailingUnderscore(typewriterTextNode);
+            }
+            const currentChar = scriptLines[currentLineIndex][positionOfCursor++];
+            typewriterTextNode.innerHTML += currentChar; // add next character
+            typewriterTextNode.innerHTML += underscore;
+            setTimeout(typewriter, timeoutForNextChar, positionOfCursor, currentLineIndex);
+        }
+    }
+
+    typewriter();
+}
+
+let currentAudio = { isPlaying: false, audio: new Audio() };
+const audioTracks = [
+    {
+        isPlaying: false,
+        audio: new Audio('audio/What does home sound like - part 1.m4a'),
+    },
+    {
+        isPlaying: false,
+        audio: new Audio('audio/What does home sound like - part 2.m4a'),
+    },
+    {
+        isPlaying: false,
+        audio: new Audio('audio/What does home sound like - part 3.m4a'),
+    },
+    {
+        isPlaying: false,
+        audio: new Audio('audio/What does home sound like - part 4.m4a'),
+    },
+    {
+        isPlaying: false,
+        audio: new Audio('audio/What does home sound like - part 6.m4a'),
+    },
+];
+
+function playRandomStory() {
+
+    if (currentAudio.isPlaying) {
+        currentAudio.audio.pause();
+    }
+
+    const randomIdx = Math.floor(Math.random() * audioTracks.length);
+    currentAudio = audioTracks[randomIdx];
+    currentAudio.audio.play();
+    currentAudio.isPlaying = true;
+}
+
+function scrollAfterTypedText() {
+    $('html, body').animate({
+        scrollTop: $('#exploreSounds').offset().top,
+    }, 1500);
+}
+
+function init() {
 
     let exploreSoundsBtn = document.getElementById('exploreSoundsBtn');
-
     exploreSoundsBtn.addEventListener('click', playRandomStory);
 
-    var isPlaying = false;
-    console.log('is playing: ', isPlaying);
-
-    var sound;
-
-    // when the user clicks the button, play a random story
-    function playRandomStory() {
-
-        var sounds = [
-            'audio/What does home sound like - part 1.m4a',
-            'audio/What does home sound like - part 2.m4a',
-            'audio/What does home sound like - part 3.m4a',
-            'audio/What does home sound like - part 4.m4a',
-            'audio/What does home sound like - part 6.m4a',
-        ];
-
-        if (isPlaying === false) {
-            console.log('is playing: ', isPlaying);
-
-            var randomSound = sounds[Math.floor(Math.random() * sounds.length)];
-            sound = new Audio(randomSound);
-            sound.play();
-            isPlaying = true;
-
-        } else {
-            console.log('is playing: ', isPlaying);
-            sound.pause();
-            sound.currentTime = 0;
-            isPlaying = false;
-        }
-    }
-
-    // typed text code from https://codepen.io/gavra/pen/tEpzn
-    var aText = new Array(
+    const typewriterNode = document.getElementById('typedtext');
+    whenTypewriterFinishesPrinting(typewriterNode, [
         'What happens when you ask 10 different people',
         'the same question?',
-    );
-    var iSpeed = 100; // time exploreSoundslay of print out
-    var iIndex = 0; // start printing array at this posision
-    var iArrLength = aText[0].length; // the length of the text array
-    var iScrollAt = 20; // start scrolling up at this many lines
+    ], scrollAfterTypedText);
+}
 
-    var iTextPos = 0; // initialise text position
-    var sContents = ''; // initialise contents variable
-    var iRow; // initialise current row
-
-    // added a callback so that the page scrolls down after the typing is done
-    function typewriter(onFinished) {
-        sContents = ' ';
-        iRow = Math.max(0, iIndex - iScrollAt);
-        var destination = document.getElementById('typedtext');
-
-        while (iRow < iIndex) {
-            sContents += aText[iRow++] + '<br />';
-        }
-        destination.innerHTML = sContents + aText[iIndex].substring(0, iTextPos) + '_';
-        if (iTextPos++ === iArrLength) {
-            iTextPos = 0;
-            iIndex++;
-            if (iIndex !== aText.length) {
-                iArrLength = aText[iIndex].length;
-                setTimeout(typewriter, 500, onFinished);
-            } else {
-                onFinished();
-            }
-        } else {
-            setTimeout(typewriter, iSpeed, onFinished);
-        }
-    }
-
-    typewriter(function() {
-        scrollAfterTypedText();
-    });
-
-    function scrollAfterTypedText() {
-        $('html, body').animate({
-            scrollTop: $('#exploreSounds').offset().top,
-        }, 1500);
-    }
-
-});
+$(document).ready(init);
