@@ -44,8 +44,7 @@ function whenTypewriterFinishesPrinting(typewriterTextNode, scriptLines, onFinis
 }
 
 let currentAudio = { isPlaying: false, audio: new Audio() };
-const audioTracks = [
-    {
+const audioTracks = [{
         isPlaying: false,
         audio: new Audio('audio/What does home sound like - part 1.m4a'),
     },
