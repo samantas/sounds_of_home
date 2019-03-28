@@ -44,25 +44,54 @@ function whenTypewriterFinishesPrinting(typewriterTextNode, scriptLines, onFinis
 }
 
 let currentAudio = { isPlaying: false, audio: new Audio() };
-const audioTracks = [{
+const audioTracks = [
+    {
         isPlaying: false,
-        audio: new Audio('audio/What does home sound like - part 1.m4a'),
+        audio: new Audio('audio/home_1.wav'),
     },
     {
         isPlaying: false,
-        audio: new Audio('audio/What does home sound like - part 2.m4a'),
+        audio: new Audio('audio/home_2.wav'),
+    },
+    // {
+    //     isPlaying: false,
+    //     audio: new Audio('audio/What does home sound like - part 3.m4a'),
+    // },
+    // {
+    //     isPlaying: false,
+    //     audio: new Audio('audio/What does home sound like - part 4.m4a'),
+    // },
+    // {
+    //     isPlaying: false,
+    //     audio: new Audio('audio/What does home sound like - part 6.m4a'),
+    // },
+    {
+        isPlaying: false,
+        audio: new Audio('audio/WDHSLTY_1.mp3'),
     },
     {
         isPlaying: false,
-        audio: new Audio('audio/What does home sound like - part 3.m4a'),
+        audio: new Audio('audio/WDHSLTY_2.mp3'),
     },
     {
         isPlaying: false,
-        audio: new Audio('audio/What does home sound like - part 4.m4a'),
+        audio: new Audio('audio/WDHSLTY_3.mp3'),
     },
     {
         isPlaying: false,
-        audio: new Audio('audio/What does home sound like - part 6.m4a'),
+        audio: new Audio('audio/WDHSLTY_4.mp3'),
+    },
+    {
+        isPlaying: false,
+        audio: new Audio('audio/WDHSLTY_5.mp3'),
+    },
+    {
+        isPlaying: false,
+        audio: new Audio('audio/WDHSLTY_6.mp3'),
+    },
+    {
+        isPlaying: false,
+        audio: new Audio('audio/WDHSLTY_7.mp3'),
     },
 ];
 
@@ -77,6 +106,18 @@ function playRandomStory() {
     currentAudio = audioTracks[randomIdx];
     currentAudio.audio.play();
     currentAudio.isPlaying = true;
+
+    // I want to transcript what people are saying
+    // and use the typewriter here
+    // can you help with that?
+}
+
+let stopSoundsBtn = document.getElementById("stopSoundsBtn");
+stopSoundsBtn.addEventListener("click", stopSound);
+
+function stopSound() {
+    currentAudio.audio.pause();
+    currentAudio.audio.currentTime = 0;
 }
 
 function scrollAfterTypedText() {
