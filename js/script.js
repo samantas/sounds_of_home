@@ -122,8 +122,7 @@ const audioTracks = [
 
 function init() {
 
-    const typewriterNode = document.getElementById('typedtext');
-    const typewriter = new Typewriter(typewriterNode);
+    const audioSubtitles = new Typewriter(document.getElementById('audioSubtitles'));
     let exploreSoundsBtn = document.getElementById('exploreSoundsBtn');
     let indexOfNextAudio = 0;
     exploreSoundsBtn.addEventListener('click', () => {
@@ -134,7 +133,7 @@ function init() {
 
         indexOfNextAudio = indexOfNextAudio === audioTracks.length - 1 ? 0 : indexOfNextAudio + 1;
 
-        typewriter.printScript(currentAudio.transcribedTextArray);
+        audioSubtitles.printScript(currentAudio.transcribedTextArray);
     });
 
     let stopSoundsBtn = document.getElementById("stopSoundsBtn");
@@ -151,7 +150,8 @@ function init() {
         * */
     });
 
-    typewriter.printScript([
+    const heroTypewriter = document.getElementById('typedtext');
+    new Typewriter(heroTypewriter).printScript([
         'What happens when you ask 10 different people',
         'the same question?',
     ]).then(scrollAfterTypedText);
