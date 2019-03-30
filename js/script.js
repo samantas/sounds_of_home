@@ -67,9 +67,10 @@ class Typewriter {
 }
 
 class UserStory extends Audio {
-    constructor(pathToAudioFile = '', transcribedTextArray = []) {
+    constructor(pathToAudioFile = '', transcribedTextArray = [], wordMapPhrases = []) {
         super(pathToAudioFile);
         this.transcribedTextArray = transcribedTextArray;
+        this.wordMapPhrases = wordMapPhrases;
         this.isPlaying = false;
     }
     play() {
@@ -90,50 +91,90 @@ let currentAudio = new UserStory();
 const audioTracks = [
     new UserStory('audio/home_1.wav', [
         'story 1 text'
+    ], [
+        'word map text 1',
+        'word map text 1',
+        'word map text 1',
     ]),
     new UserStory('audio/home_2.wav', [
         'story 2 text'
+    ], [
+        'word map text 2'
     ]),
-    // new UserStory('audio/What does home sound like - part 3.m4a', []),
-    // new UserStory('audio/What does home sound like - part 4.m4a', []),
-    // new UserStory('audio/What does home sound like - part 6.m4a', []),
+    // new UserStory('audio/What does home sound like - part 3.m4a', [], ['word map text']),
+    // new UserStory('audio/What does home sound like - part 4.m4a', [], ['word map text']),
+    // new UserStory('audio/What does home sound like - part 6.m4a', [], ['word map text']),
     new UserStory('audio/WDHSLTY_1.mp3', [
         'story 3 text'
+    ], [
+        'word map text 3'
     ]),
     new UserStory('audio/WDHSLTY_2.mp3', [
         'story 4 text'
+    ], [
+        'word map text 4'
     ]),
     new UserStory('audio/WDHSLTY_3.mp3', [
         'story 5 text'
+    ], [
+        'word map text 5'
     ]),
     new UserStory('audio/WDHSLTY_4.mp3', [
         'story 6 text'
+    ], [
+        'word map text 6'
     ]),
     new UserStory('audio/WDHSLTY_5.mp3', [
         'story 7 text'
+    ], [
+        'word map text 7'
     ]),
     new UserStory('audio/WDHSLTY_6.mp3', [
         'story 8 text'
+    ], [
+        'word map text 8'
     ]),
     new UserStory('audio/WDHSLTY_7.mp3', [
         'story 9 text'
+    ], [
+        'word map text 9'
     ]),
 ];
+
+function appendAudioWordMap(audioWordMapEl, wordMapPhrases) {
+    const FADE_IN_TIME = 750;
+    wordMapPhrases.forEach((phrase, i) => {
+        setTimeout(() => {
+            const div = document.createElement('div');
+            div.setAttribute('class', `audioWordMap audioWordMap--${i} fadeIn`);
+            div.textContent = phrase;
+            audioWordMapEl.appendChild(div);
+            setTimeout(() => div.classList.remove('fadeIn'), FADE_IN_TIME);
+        }, i * FADE_IN_TIME);
+    });
+}
+
+function onRepeatNoShuffle(indexOfNextAudio) {
+    return indexOfNextAudio === audioTracks.length - 1 ? 0 : indexOfNextAudio + 1;
+}
 
 function init() {
 
     const audioSubtitles = new Typewriter(document.getElementById('audioSubtitles'));
+    const audioWordMapEl = document.getElementById('audioWordMap');
     let exploreSoundsBtn = document.getElementById('exploreSoundsBtn');
-    let indexOfNextAudio = 0;
+    let nextAudioIdx = 0;
     exploreSoundsBtn.addEventListener('click', () => {
 
         currentAudio.pauseAndRestart();
-        currentAudio = audioTracks[indexOfNextAudio];
+        currentAudio = audioTracks[nextAudioIdx];
         currentAudio.play();
 
-        indexOfNextAudio = indexOfNextAudio === audioTracks.length - 1 ? 0 : indexOfNextAudio + 1;
+        nextAudioIdx = onRepeatNoShuffle(nextAudioIdx);
 
-        audioSubtitles.printScript(currentAudio.transcribedTextArray);
+        audioSubtitles.printScript(currentAudio.transcribedTextArray).then(() => {
+            appendAudioWordMap(audioWordMapEl, currentAudio.wordMapPhrases);
+        });
     });
 
     let stopSoundsBtn = document.getElementById("stopSoundsBtn");
