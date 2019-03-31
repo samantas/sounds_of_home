@@ -201,7 +201,7 @@ function onRepeatNoShuffle(indexOfNextAudio) {
 
 function init() {
 
-    const audioSubtitles = new Typewriter(document.getElementById('audioSubtitles'));
+    const audioSubtitleTypewriter = new Typewriter(document.getElementById('audioSubtitles'));
     const audioWordMapEl = document.getElementById('audioWordMap');
     let exploreSoundsBtn = document.getElementById('exploreSoundsBtn');
     let nextAudioIdx = 0;
@@ -213,15 +213,14 @@ function init() {
 
         nextAudioIdx = onRepeatNoShuffle(nextAudioIdx);
 
-        audioSubtitles.printScript(currentAudio.transcribedTextArray).then(() => {
-            appendAudioWordMap(audioWordMapEl, currentAudio.wordMapPhrases);
-        });
+        audioSubtitleTypewriter.printScript(currentAudio.transcribedTextArray);
+        appendAudioWordMap(audioWordMapEl, currentAudio.wordMapPhrases);
     });
 
     let stopSoundsBtn = document.getElementById("stopSoundsBtn");
     stopSoundsBtn.addEventListener("click", () => {
         currentAudio.pause();
- 
+
     });
 
     const heroTypewriter = document.getElementById('typedtext');
