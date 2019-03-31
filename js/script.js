@@ -16,42 +16,46 @@ class Typewriter {
         this.timeoutForNextChar = 100;
         this.timeoutForNextLine = 500;
         this.typewriterTimeout = -1;
+        this.positionOfCursor = 0;
+        this.currentLineIndex = 0;
+        this.scriptLines = [];
     }
-    printScript(scriptLines) {
+    print(scriptLines = []) {
 
-        this.reset();
+        // either resume playing the previosu script or play the passed script
+        this.scriptLines = scriptLines.length ? scriptLines : this.scriptLines;
 
         return new Promise((onFinished) => {
 
-            const runTypewriter = (positionOfCursor = 0, currentLineIndex = 0) => {
+            const runTypewriter = () => {
 
-                const lengthOfCurrentLine = scriptLines[currentLineIndex].length;
-                const isFinishedWithLine = positionOfCursor === lengthOfCurrentLine;
+                const lengthOfCurrentLine = this.scriptLines[this.currentLineIndex].length;
+                const isFinishedWithLine = this.positionOfCursor === lengthOfCurrentLine;
                 if (isFinishedWithLine) {
 
-                    currentLineIndex += 1; // bump to next line
-                    const isFinishedWithScript = currentLineIndex === scriptLines.length;
+                    this.currentLineIndex += 1; // bump to next line
+                    const isFinishedWithScript = this.currentLineIndex === this.scriptLines.length;
                     if (isFinishedWithScript) {
                         return onFinished();
                     }
 
                     // reset cursor & recurse with incremented line index to begin typing on the next line
                     removeTrailingUnderscore(this.typewriterTextNode);
-                    positionOfCursor = 0; // reset position back to 0 to begin typing the next line
+                    this.positionOfCursor = this.positionOfCursor || 0; // reset position back to 0 to begin typing the next line
                     this.typewriterTextNode.innerHTML += '<br />';
 
-                    this.typewriterTimeout = setTimeout(runTypewriter, this.timeoutForNextLine, positionOfCursor, currentLineIndex);
+                    this.typewriterTimeout = setTimeout(runTypewriter, this.timeoutForNextLine, this.positionOfCursor, this.currentLineIndex);
                 } else { // still accumulating characters on this line
 
                     const underscore = '_';
-                    const hasUnderscore = positionOfCursor !== 0;
+                    const hasUnderscore = this.positionOfCursor !== 0;
                     if (hasUnderscore) {
                         removeTrailingUnderscore(this.typewriterTextNode);
                     }
-                    const currentChar = scriptLines[currentLineIndex][positionOfCursor++];
+                    const currentChar = this.scriptLines[this.currentLineIndex][this.positionOfCursor++];
                     this.typewriterTextNode.innerHTML += currentChar; // add next character
                     this.typewriterTextNode.innerHTML += underscore;
-                    this.typewriterTimeout = setTimeout(runTypewriter, this.timeoutForNextChar, positionOfCursor, currentLineIndex);
+                    this.typewriterTimeout = setTimeout(runTypewriter, this.timeoutForNextChar, this.positionOfCursor, this.currentLineIndex);
                 }
             };
 
@@ -60,12 +64,20 @@ class Typewriter {
             }
         });
     }
+    play() {
+        this.print();
+        return this;
+    }
     pause() {
         clearTimeout(this.typewriterTimeout);
+        return this;
     }
     reset() {
         this.pause();
+        this.positionOfCursor = 0;
+        this.currentLineIndex = 0;
         this.typewriterTextNode.innerHTML = '';
+        return this;
     }
 }
 
@@ -230,8 +242,10 @@ function onRepeatNoShuffle(indexOfNextAudio) {
 function init() {
 
     /*
-    * to limit potential confusion with the app's lifecycle, all stateful variables are defined in init
+    * to limit potential confusion with the app's lifecycle, all _stateful_ variables are defined in init
     * in order maintain a single source of truth, all logic and flow control happens in init
+    *
+    * stateful variables are tricky
     * */
 
     const audioSubtitleTypewriter = new Typewriter(document.getElementById('audioSubtitles'));
@@ -246,7 +260,7 @@ function init() {
 
         nextAudioIdx = onRepeatNoShuffle(nextAudioIdx);
 
-        audioSubtitleTypewriter.printScript(currentAudio.transcribedTextArray);
+        audioSubtitleTypewriter.reset().print(currentAudio.transcribedTextArray);
         appendAudioWordMap(audioWordMapEl, currentAudio.wordMapPhrases);
     });
 
@@ -258,12 +272,14 @@ function init() {
 
     // if (currentAudio.isPlaying) {
     //     currentAudio.pause();
+    //     audioSubtitleTypewriter.pause();
     // } else {
     //     currentAudio.play();
+    //     audioSubtitleTypewriter.play();
     // }
 
     const heroTypewriter = document.getElementById('typedtext');
-    new Typewriter(heroTypewriter).printScript([
+    new Typewriter(heroTypewriter).print([
         'What happens when you ask different people',
         'the same question?',
     ]).then(scrollAfterTypedText);
