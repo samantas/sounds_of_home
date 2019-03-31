@@ -60,8 +60,11 @@ class Typewriter {
             }
         });
     }
-    reset() {
+    pause() {
         clearTimeout(this.typewriterTimeout);
+    }
+    reset() {
+        this.pause();
         this.typewriterTextNode.innerHTML = '';
     }
 }
@@ -113,7 +116,7 @@ const audioTracks = [
 
     ], [
         'song my dad played',
-        'backwater bayou' 
+        'backwater bayou'
     ]),
     // new UserStory('audio/What does home sound like - part 3.m4a', [], ['word map text']),
     // new UserStory('audio/What does home sound like - part 4.m4a', [], ['word map text']),
@@ -201,6 +204,12 @@ function onRepeatNoShuffle(indexOfNextAudio) {
 
 function init() {
 
+    /*
+    * to limit potential confusion with the app's lifecycle, all stateful variables are defined in init
+    * in order maintain a single source of truth, all logic and flow control happens in init
+    * */
+
+
     const audioSubtitleTypewriter = new Typewriter(document.getElementById('audioSubtitles'));
     const audioWordMapEl = document.getElementById('audioWordMap');
     let exploreSoundsBtn = document.getElementById('exploreSoundsBtn');
@@ -220,7 +229,7 @@ function init() {
     let stopSoundsBtn = document.getElementById("stopSoundsBtn");
     stopSoundsBtn.addEventListener("click", () => {
         currentAudio.pause();
-
+        // reset
     });
 
     const heroTypewriter = document.getElementById('typedtext');
