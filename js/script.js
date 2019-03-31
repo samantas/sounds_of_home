@@ -90,54 +90,69 @@ class UserStory extends Audio {
 let currentAudio = new UserStory();
 const audioTracks = [
     new UserStory('audio/home_1.wav', [
-        'story 1 text'
+        'So my home sounds to me like the footsteps of my family members, which are very, very distinct.',
+        'I can just hear the footsteps of either my brother, my dad, or my mom, and I know exactly which ones belong to which family member.',
+        'My home sounds to me also like just something happening in the kitchen. And based on the sounds coming from the kitchen I know who is in the kitchen.',
+        'And also, the doors being closed or open, and evening depending on that sound I know who did that activity.'
     ], [
-        'word map text 1',
-        'word map text 1',
-        'word map text 1',
+        'footsteps of my brother',
+        'the kitchen',
+        'the doors'
     ]),
     new UserStory('audio/home_2.wav', [
-        'story 2 text'
+        'I am pulling up a song, so I am from a small town just outside of New Orleans...and this is a song my dad played a ton.'
     ], [
-        'word map text 2'
+        'song my dad played',
+        'backwater bayou'
     ]),
     // new UserStory('audio/What does home sound like - part 3.m4a', [], ['word map text']),
     // new UserStory('audio/What does home sound like - part 4.m4a', [], ['word map text']),
     // new UserStory('audio/What does home sound like - part 6.m4a', [], ['word map text']),
     new UserStory('audio/WDHSLTY_1.mp3', [
-        'story 3 text'
+        'my bad,...uh, my dog'
     ], [
-        'word map text 3'
+        'my dog',
+        'laptop'
     ]),
     new UserStory('audio/WDHSLTY_2.mp3', [
         'story 4 text'
     ], [
-        'word map text 4'
+        'roosters',
+        'cows giving birth'
     ]),
     new UserStory('audio/WDHSLTY_3.mp3', [
         'story 5 text'
     ], [
-        'word map text 5'
+        'mooommy'
     ]),
     new UserStory('audio/WDHSLTY_4.mp3', [
         'story 6 text'
     ], [
-        'word map text 6'
+        'dogs barking',
+        'my mom yelling',
+        'my dogs'
     ]),
     new UserStory('audio/WDHSLTY_5.mp3', [
         'story 7 text'
     ], [
-        'word map text 7'
+        'everybody doing their own thing',
+        'mom cooking',
+        'yoga videos',
+        'nintendo switch'
     ]),
     new UserStory('audio/WDHSLTY_6.mp3', [
         'story 8 text'
     ], [
-        'word map text 8'
+        'family dinners',
+        'late night drives',
+        'radio',
+        'waves crashing',
+        'crackling of a bonfire'
     ]),
     new UserStory('audio/WDHSLTY_7.mp3', [
         'story 9 text'
     ], [
-        'word map text 9'
+        'hooo...m e'
     ]),
 ];
 
@@ -180,20 +195,12 @@ function init() {
     let stopSoundsBtn = document.getElementById("stopSoundsBtn");
     stopSoundsBtn.addEventListener("click", () => {
         currentAudio.pause();
-
-        /*
-        * if you want to toggle play pause here:
-        if (currentAudio.isPlaying) {
-            currentAudio.pause();
-        } else {
-            currentAudio.play();
-        }
-        * */
+ 
     });
 
     const heroTypewriter = document.getElementById('typedtext');
     new Typewriter(heroTypewriter).printScript([
-        'What happens when you ask 10 different people',
+        'What happens when you ask different people',
         'the same question?',
     ]).then(scrollAfterTypedText);
 }

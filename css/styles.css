@@ -22,7 +22,7 @@ body {
     flex-direction: column;
     position: relative;
     justify-content: center;
-    min-height: 600px;
+    min-height: 800px;
     font-size: 30px;
 }
 
@@ -41,6 +41,18 @@ body {
 .dark {
     background-color: #333;
     color: #fff;
+}
+
+.top {
+    justify-content: flex-start;
+    padding: 40px 0;
+    box-sizing: border-box;
+}
+
+.unset {
+    min-height: unset;
+    padding: 40px 0;
+    box-sizing: border-box;
 }
 
 .cta {
@@ -110,7 +122,30 @@ body {
     0% {
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }
+}
+
+.question {}
+
+.subtitles {
+    font-size: 16px;
+}
+
+.wordmap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.audioWordMap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 15px;
+    min-width: 150px;
+    max-width: 200px;
 }
