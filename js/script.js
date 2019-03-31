@@ -209,7 +209,6 @@ function init() {
     * in order maintain a single source of truth, all logic and flow control happens in init
     * */
 
-
     const audioSubtitleTypewriter = new Typewriter(document.getElementById('audioSubtitles'));
     const audioWordMapEl = document.getElementById('audioWordMap');
     let exploreSoundsBtn = document.getElementById('exploreSoundsBtn');
@@ -229,7 +228,7 @@ function init() {
     let stopSoundsBtn = document.getElementById("stopSoundsBtn");
     stopSoundsBtn.addEventListener("click", () => {
         currentAudio.pause();
-        // reset
+        audioSubtitleTypewriter.pause();
     });
 
     const heroTypewriter = document.getElementById('typedtext');
