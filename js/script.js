@@ -1,4 +1,3 @@
-
 function scrollAfterTypedText() {
     $('html, body').animate({
         scrollTop: $('#exploreSounds').offset().top,
@@ -323,11 +322,11 @@ function init() {
         if (currentStory.isPlaying) { // pause story audio and typewriter. show pause button
             currentStory.pause();
             audioSubtitleTypewriter.pause();
-            playPauseBtn.children[0].classList.replace('fa-play-circle', 'fa-pause-circle');
+            playPauseBtn.children[0].classList.replace('fa-pause-circle', 'fa-play-circle');
         } else { // play story audio and resume typewriting. show play button
             currentStory.play();
             audioSubtitleTypewriter.play();
-            playPauseBtn.children[0].classList.replace('fa-pause-circle', 'fa-play-circle');
+            playPauseBtn.children[0].classList.replace('fa-play-circle', 'fa-pause-circle');
         }
     });
 
