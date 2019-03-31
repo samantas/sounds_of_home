@@ -231,6 +231,12 @@ function init() {
         audioSubtitleTypewriter.pause();
     });
 
+    // if (currentAudio.isPlaying) {
+    //     currentAudio.pause();
+    // } else {
+    //     currentAudio.play();
+    // }
+
     const heroTypewriter = document.getElementById('typedtext');
     new Typewriter(heroTypewriter).printScript([
         'What happens when you ask different people',
