@@ -259,7 +259,7 @@ const stories = [
 ];
 
 function appendAudioWordMap(audioWordMapEl, wordMapPhrases) {
-    const FADE_IN_TIME = 750;
+    const FADE_IN_TIME = 1250;
     wordMapPhrases.forEach((phrase, i) => {
         setTimeout(() => {
             const div = document.createElement('div');
