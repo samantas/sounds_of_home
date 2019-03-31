@@ -100,40 +100,61 @@ const audioTracks = [
         'the doors'
     ]),
     new UserStory('audio/home_2.wav', [
-        'I am pulling up a song, so I am from a small town just outside of New Orleans...and this is a song my dad played a ton.'
+        'I am pulling up a song, so I am from a small town just outside of New Orleans...ummmm',
+        'and, uh, this is a song my dad played a ton whenever I was...just, throughout my whole life',
+        'uh, it is called backwater bayou, it is from a group from New Orleans, and it is just instrumental',
+        'but it basically sounds like what the bayou sounds like which is where I am from',
+        'this is backwater bayou *plays song* hopefully we can hear it',
+        '*song playing*',
+        'it kinda has this cool, sort of slow backwater vibe to it, it does pick up',
+        'there is some higher pitched guitar, there is some, I will fast forward a bit',
+        'a great harmonica bit, which just kinda has a good sort of Louisiana feel I think to it',
+        'a cool fun vibe'
+
     ], [
         'song my dad played',
-        'backwater bayou'
+        'backwater bayou' 
     ]),
     // new UserStory('audio/What does home sound like - part 3.m4a', [], ['word map text']),
     // new UserStory('audio/What does home sound like - part 4.m4a', [], ['word map text']),
     // new UserStory('audio/What does home sound like - part 6.m4a', [], ['word map text']),
     new UserStory('audio/WDHSLTY_1.mp3', [
-        'my bad,...uh, my dog'
+        'my bad,...uh, my dog',
+        'and with like my laptop open on my lap playing like Narso',
+        'thats it'
     ], [
         'my dog',
         'laptop'
     ]),
     new UserStory('audio/WDHSLTY_2.mp3', [
-        'story 4 text'
+        'umm, home usually sounds like roosters, to be honest, and then cows giving birth',
+        'and then my dad typing on his computer',
+        'and then, usually like home movies',
+        'or like, any type of like cooking channels on, so yeah'
     ], [
         'roosters',
-        'cows giving birth'
+        'cows giving birth',
+        'cooking channels'
     ]),
     new UserStory('audio/WDHSLTY_3.mp3', [
-        'story 5 text'
+        'moooomy, moomy'
     ], [
         'mooommy'
     ]),
     new UserStory('audio/WDHSLTY_4.mp3', [
-        'story 6 text'
+        'home sounds like dogs barking, my mom yelling at me *giggles*',
+        'umm, my family on a shrimp farm (cant tell what she is saying?)',
+        'my dogs, and us eating'
     ], [
         'dogs barking',
         'my mom yelling',
         'my dogs'
     ]),
     new UserStory('audio/WDHSLTY_5.mp3', [
-        'story 7 text'
+        'I guess home to me sounds like the sound of everybody doing their own thing cuz my family is pretty independent',
+        'whether its my mom cooking or watching yoga videos on youtube',
+        'umm, or my brother watching video game videos on youtube, or playing his nintendo switch game',
+        'home to me just sounds like everybody being in their own zone and doing whatever they want, basically'
     ], [
         'everybody doing their own thing',
         'mom cooking',
@@ -141,7 +162,9 @@ const audioTracks = [
         'nintendo switch'
     ]),
     new UserStory('audio/WDHSLTY_6.mp3', [
-        'story 8 text'
+        'ok, uh, home to me sounds like, umm, family dinners',
+        'late night drives with my friends with the volume turned all the way up on the radio',
+        'waves crashing, crackling of a bonfire, yeah thats what home sounds like to me'
     ], [
         'family dinners',
         'late night drives',
@@ -150,9 +173,12 @@ const audioTracks = [
         'crackling of a bonfire'
     ]),
     new UserStory('audio/WDHSLTY_7.mp3', [
-        'story 9 text'
+        'I guess to me home sounds like, hoooo...m...e, so I hear the h and the o sound but the m part doesnt register as much',
+        'so theres an emphasis on the h, and the most emphasis on the o, and then not so much emphasis on the m',
+        '(interviewer: why is that?)',
+        'I dont know, hoooo..., thats the most important part'
     ], [
-        'hooo...m e'
+        'hooo...m..e'
     ]),
 ];
 
